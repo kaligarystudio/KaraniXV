@@ -1,25 +1,57 @@
+const startScreen = document.getElementById("start-screen");
+const scene = document.querySelector(".scene");
+const music = document.getElementById("bg-music");
+
+/* INICIO */
+document.querySelector(".fairy-start").addEventListener("click", () => {
+    startScreen.style.display = "none";
+    scene.classList.remove("hidden");
+
+    music.volume = 0.5;
+    music.play();
+
+    startFairies();
+});
+
+/* HADAS */
 const container = document.getElementById("fairy-container");
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
 
-const isMobile = window.innerWidth < 768;
+document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
 
-/* CREAR HADA */
+document.addEventListener("touchmove", (e) => {
+    mouseX = e.touches[0].clientX;
+    mouseY = e.touches[0].clientY;
+});
+
 function createFairy() {
     const fairy = document.createElement("div");
     fairy.classList.add("fairy");
-
-    fairy.style.left = Math.random() * window.innerWidth + "px";
-    fairy.style.top = window.innerHeight + "px";
 
     const size = Math.random() * 6 + 4;
     fairy.style.width = size + "px";
     fairy.style.height = size + "px";
 
-    fairy.style.animationDuration = (6 + Math.random() * 6) + "s";
+    fairy.style.left = mouseX + "px";
+    fairy.style.top = mouseY + "px";
+
+    fairy.animate([
+        { transform: "translate(0,0)", opacity: 0 },
+        { opacity: 1 },
+        { transform: `translate(${Math.random()*100-50}px, -200px)` },
+        { opacity: 0 }
+    ], {
+        duration: 4000 + Math.random()*2000
+    });
 
     container.appendChild(fairy);
-
-    setTimeout(() => fairy.remove(), 12000);
+    setTimeout(() => fairy.remove(), 6000);
 }
 
-/* GENERACIÓN CONTINUA */
-setInterval(createFairy, isMobile ? 800 : 300);
+function startFairies() {
+    setInterval(createFairy, 250);
+}
