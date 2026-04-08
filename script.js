@@ -3,12 +3,58 @@ const scene = document.querySelector(".scene");
 const music = document.getElementById("bg-music");
 
 /* INICIO */
-document.querySelector(".fairy-start").addEventListener("click", () => {
-    startScreen.style.display = "none";
+const fairyBtn = document.getElementById("fairy-btn");
+
+fairyBtn.addEventListener("click", (e) => {
+
+    /* CREAR POLVO MÁGICO */
+    for (let i = 0; i < 40; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+
+        sparkle.style.left = e.clientX + "px";
+        sparkle.style.top = e.clientY + "px";
+
+        document.body.appendChild(sparkle);
+
+        sparkle.animate([
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${Math.random()*200-100}px, ${Math.random()*-200}px)`, opacity: 0 }
+        ], {
+            duration: 1200 + Math.random()*800,
+            easing: "ease-out"
+        });
+
+        setTimeout(() => sparkle.remove(), 2000);
+    }
+
+    /* TRANSICIÓN SUAVE */
+    const startScreen = document.getElementById("start-screen");
+    startScreen.style.transition = "opacity 1s";
+    startScreen.style.opacity = "0";
+
+    setTimeout(() => {
+        startScreen.style.display = "none";
+    }, 1000);
+
+    /* ACTIVAR ESCENA */
+    const scene = document.querySelector(".scene");
     scene.classList.remove("hidden");
 
-    music.volume = 0.5;
-    music.play();
+    /* MÚSICA */
+    const music = document.getElementById("bg-music");
+    if (music) {
+        music.volume = 0;
+        music.play();
+
+        /* FADE IN */
+        let vol = 0;
+        const fade = setInterval(() => {
+            vol += 0.05;
+            music.volume = vol;
+            if (vol >= 0.5) clearInterval(fade);
+        }, 200);
+    }
 
     startFairies();
 });
