@@ -1,28 +1,25 @@
 const container = document.getElementById("fairy-container");
 
+const isMobile = window.innerWidth < 768;
+
+/* CREAR HADA */
 function createFairy() {
     const fairy = document.createElement("div");
     fairy.classList.add("fairy");
 
-    // Posición inicial aleatoria
     fairy.style.left = Math.random() * window.innerWidth + "px";
     fairy.style.top = window.innerHeight + "px";
 
-    // Duración aleatoria
-    fairy.style.animationDuration = (8 + Math.random() * 10) + "s";
-
-    // Tamaño variable
-    const size = 5 + Math.random() * 6;
+    const size = Math.random() * 6 + 4;
     fairy.style.width = size + "px";
     fairy.style.height = size + "px";
 
+    fairy.style.animationDuration = (6 + Math.random() * 6) + "s";
+
     container.appendChild(fairy);
 
-    // Eliminar después de animación
-    setTimeout(() => {
-        fairy.remove();
-    }, 18000);
+    setTimeout(() => fairy.remove(), 12000);
 }
 
-// Generar hadas continuamente
-setInterval(createFairy, 300);
+/* GENERACIÓN CONTINUA */
+setInterval(createFairy, isMobile ? 800 : 300);
