@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Dulces 16</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<title>Invitación Dulces 16</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<div class="scene">
+<!-- PANTALLA INICIAL -->
+<div id="start-screen">
+    <div class="fairy-start">✨</div>
+    <p>Toca el hada para comenzar</p>
+</div>
 
-    <!-- Fondo -->
+<!-- INVITACIÓN -->
+<div class="scene hidden">
+
     <div class="forest"></div>
-
-    <!-- Hadas -->
     <div id="fairy-container"></div>
 
-    <!-- Contenido -->
     <div class="content">
         <p class="intro">
             Bajo un cielo de luces y flores,<br>
@@ -46,11 +47,14 @@
             Será una noche mágica que no querrás perderte...
         </p>
     </div>
-
 </div>
 
-<!-- JS -->
-<script src="script.js" defer></script>
+<!-- AUDIO -->
+<audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
 
 </body>
 </html>
