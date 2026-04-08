@@ -1,8 +1,7 @@
 body {
     margin: 0;
-    font-family: 'Georgia', serif;
     overflow: hidden;
-    background: #000;
+    background: black;
 }
 
 /* ESCENA */
@@ -10,111 +9,115 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
 }
 
-/* FONDO BOSQUE */
+/* FONDO */
 .forest {
     position: absolute;
     width: 110%;
     height: 110%;
-    background: url('tu-imagen.jpg') center/cover no-repeat;
-    animation: forestMove 12s ease-in-out infinite alternate;
-    filter: brightness(0.8) contrast(1.1);
+    background: url('bosque.png') center/cover no-repeat;
+    animation: forestMove 15s ease-in-out infinite alternate;
+    filter: brightness(0.85) contrast(1.1);
 }
 
-/* MOVIMIENTO SUAVE (efecto viento) */
+/* MOVIMIENTO BOSQUE */
 @keyframes forestMove {
-    0% {
-        transform: scale(1) translateX(0px);
-    }
-    100% {
-        transform: scale(1.05) translateX(-10px);
-    }
+    0% { transform: scale(1) translateX(0); }
+    100% { transform: scale(1.05) translateX(-15px); }
 }
 
-/* CAPA DE LUCES */
-.lights {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-/* PARTICULAS (luciérnagas) */
-.lights::before,
-.lights::after {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background-image: radial-gradient(circle, rgba(255,223,120,0.8) 2px, transparent 3px);
-    background-size: 50px 50px;
-    animation: floatLights 20s linear infinite;
-    opacity: 0.6;
-}
-
-.lights::after {
-    animation-duration: 30s;
-    opacity: 0.3;
-}
-
-/* MOVIMIENTO DE LUCES */
-@keyframes floatLights {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-200px);
-    }
-}
-
-/* TEXTO */
+/* CONTENIDO */
 .content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #f5d48f;
-    text-shadow: 0 0 10px rgba(255, 200, 100, 0.7);
+    color: #f5e6c8;
 }
 
-/* EFECTO FADE */
-.content p,
-.content h1,
-.content h2,
-.content h3 {
+/* TIPOGRAFÍA */
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 70px;
+    color: #ffd700;
+    text-shadow: 0 0 15px gold;
+}
+
+h2, h3 {
+    font-family: 'Cinzel', serif;
+}
+
+h3 {
+    font-size: 48px;
+    color: #ffe9a6;
+}
+
+p {
+    font-family: 'Cinzel', serif;
+}
+
+/* EFECTO APARICIÓN */
+.content * {
     opacity: 0;
-    animation: fadeIn 2s ease forwards;
+    transform: translateY(20px);
+    animation: fadeUp 1.5s forwards;
 }
 
-/* DELAY PROGRESIVO */
 .intro { animation-delay: 1s; }
-h1 { animation-delay: 2s; font-size: 60px; }
-h2 { animation-delay: 2.5s; font-size: 28px; }
-h3 { animation-delay: 3s; font-size: 48px; }
+h1 { animation-delay: 2s; }
+h2 { animation-delay: 2.5s; }
+h3 { animation-delay: 3s; }
 .details { animation-delay: 4s; }
 .footer { animation-delay: 5s; }
 
-/* ANIMACIÓN TEXTO */
-@keyframes fadeIn {
+@keyframes fadeUp {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* EFECTO BRILLO EN TEXTO PRINCIPAL */
-h1, h3 {
-    animation: glow 3s ease-in-out infinite alternate;
+/* LUCES */
+.lights::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(circle, rgba(255,215,0,0.8) 2px, transparent 3px);
+    background-size: 60px 60px;
+    animation: floatLights 25s linear infinite;
 }
 
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px #f5d48f, 0 0 20px #f5d48f;
+@keyframes floatLights {
+    from { transform: translateY(0); }
+    to { transform: translateY(-300px); }
+}
+
+/* HADAS */
+.fairy {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #fff, #ffd700);
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff, 0 0 20px gold;
+    animation: fly linear infinite;
+}
+
+/* MOVIMIENTO HADAS */
+@keyframes fly {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
     }
-    to {
-        text-shadow: 0 0 20px #fff2c0, 0 0 40px #ffd700;
+    10% { opacity: 1; }
+    50% {
+        transform: translate(100px, -150px) scale(1.2);
+    }
+    100% {
+        transform: translate(-100px, -300px) scale(0.8);
+        opacity: 0;
     }
 }
