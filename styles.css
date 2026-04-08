@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+    background: #000;
+}
+
+/* ESCENA */
+.scene {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* FONDO BOSQUE */
+.forest {
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    background: url('tu-imagen.jpg') center/cover no-repeat;
+    animation: forestMove 12s ease-in-out infinite alternate;
+    filter: brightness(0.8) contrast(1.1);
+}
+
+/* MOVIMIENTO SUAVE (efecto viento) */
+@keyframes forestMove {
+    0% {
+        transform: scale(1) translateX(0px);
+    }
+    100% {
+        transform: scale(1.05) translateX(-10px);
+    }
+}
+
+/* CAPA DE LUCES */
+.lights {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* PARTICULAS (luciérnagas) */
+.lights::before,
+.lights::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(circle, rgba(255,223,120,0.8) 2px, transparent 3px);
+    background-size: 50px 50px;
+    animation: floatLights 20s linear infinite;
+    opacity: 0.6;
+}
+
+.lights::after {
+    animation-duration: 30s;
+    opacity: 0.3;
+}
+
+/* MOVIMIENTO DE LUCES */
+@keyframes floatLights {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-200px);
+    }
+}
+
+/* TEXTO */
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #f5d48f;
+    text-shadow: 0 0 10px rgba(255, 200, 100, 0.7);
+}
+
+/* EFECTO FADE */
+.content p,
+.content h1,
+.content h2,
+.content h3 {
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+/* DELAY PROGRESIVO */
+.intro { animation-delay: 1s; }
+h1 { animation-delay: 2s; font-size: 60px; }
+h2 { animation-delay: 2.5s; font-size: 28px; }
+h3 { animation-delay: 3s; font-size: 48px; }
+.details { animation-delay: 4s; }
+.footer { animation-delay: 5s; }
+
+/* ANIMACIÓN TEXTO */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* EFECTO BRILLO EN TEXTO PRINCIPAL */
+h1, h3 {
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #f5d48f, 0 0 20px #f5d48f;
+    }
+    to {
+        text-shadow: 0 0 20px #fff2c0, 0 0 40px #ffd700;
+    }
+}
