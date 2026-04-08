@@ -1,8 +1,38 @@
 body {
     margin: 0;
-    overflow-x: hidden;
     background: black;
     font-family: 'Cinzel', serif;
+    overflow: hidden;
+}
+
+/* PANTALLA INICIAL */
+#start-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #000, #020d1f);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffd700;
+    z-index: 10;
+}
+
+.fairy-start {
+    font-size: 60px;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); text-shadow: 0 0 10px gold; }
+    100% { transform: scale(1.2); text-shadow: 0 0 30px gold; }
+}
+
+/* OCULTO */
+.hidden {
+    display: none;
 }
 
 /* ESCENA */
@@ -10,7 +40,6 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
 }
 
 /* FONDO */
@@ -19,21 +48,12 @@ body {
     width: 110%;
     height: 110%;
     background: url('bosque.png') center/cover no-repeat;
-    animation: forestMove 15s ease-in-out infinite alternate;
-    filter: brightness(0.85);
-}
-
-.forest::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
+    animation: forestMove 15s infinite alternate;
 }
 
 @keyframes forestMove {
-    0% { transform: scale(1) translateX(0); }
-    100% { transform: scale(1.05) translateX(-15px); }
+    from { transform: scale(1); }
+    to { transform: scale(1.05) translateX(-10px); }
 }
 
 /* CONTENIDO */
@@ -44,102 +64,38 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     color: #f5e6c8;
-    width: 90%;
-    max-width: 600px;
 }
 
 /* TIPOGRAFÍA */
 h1 {
     font-family: 'Great Vibes', cursive;
     font-size: clamp(40px, 8vw, 80px);
-    color: #ffd700;
-    text-shadow: 0 0 20px gold;
+    color: gold;
 }
 
-h2 {
-    font-size: clamp(18px, 3vw, 30px);
-}
-
-p {
-    font-size: clamp(14px, 2.5vw, 18px);
-}
-
-/* DULCES 16 */
+/* DULCES 16 FIX */
 .dulces span {
     font-family: 'Great Vibes', cursive;
     font-size: clamp(40px, 10vw, 90px);
     color: #ffd700;
-    position: relative;
 
     text-shadow:
         0 0 10px #ffd700,
         0 0 20px #ffcc66,
         0 0 40px #ffaa00;
 
-    animation: glowPulse 3s infinite alternate;
+    animation: glow 2s infinite alternate;
 }
 
-@keyframes glowPulse {
-    from { text-shadow: 0 0 10px #ffd700; }
-    to { text-shadow: 0 0 30px #fff2b0, 0 0 60px #ffd700; }
-}
-
-/* BRILLO */
-.dulces span::after {
-    content: "Dulces 16";
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: linear-gradient(120deg, transparent, white, transparent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 4s infinite;
-}
-
-@keyframes shine {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(100%); }
-}
-
-/* ENTRADA */
-.content * {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1.5s forwards;
-}
-
-.intro { animation-delay: 1s; }
-h1 { animation-delay: 2s; }
-h2 { animation-delay: 2.5s; }
-.dulces { animation-delay: 3s; }
-.details { animation-delay: 4s; }
-.footer { animation-delay: 5s; }
-
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes glow {
+    from { text-shadow: 0 0 10px gold; }
+    to { text-shadow: 0 0 30px #fff2b0, 0 0 60px gold; }
 }
 
 /* HADAS */
 .fairy {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle, #fff, #ffd700);
+    background: radial-gradient(circle, #fff, gold);
     box-shadow: 0 0 10px #fff, 0 0 20px gold;
-    animation: fly linear forwards;
-}
-
-@keyframes fly {
-    0% { transform: translate(0,0); opacity: 0; }
-    10% { opacity: 1; }
-    100% { transform: translate(-100px,-300px); opacity: 0; }
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .forest {
-        background-position: center top;
-    }
 }
