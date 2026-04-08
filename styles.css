@@ -1,7 +1,8 @@
 body {
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
     background: black;
+    font-family: 'Cinzel', serif;
 }
 
 /* ESCENA */
@@ -9,6 +10,7 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 /* FONDO */
@@ -18,10 +20,17 @@ body {
     height: 110%;
     background: url('bosque.png') center/cover no-repeat;
     animation: forestMove 15s ease-in-out infinite alternate;
-    filter: brightness(0.85) contrast(1.1);
+    filter: brightness(0.85);
 }
 
-/* MOVIMIENTO BOSQUE */
+.forest::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+}
+
 @keyframes forestMove {
     0% { transform: scale(1) translateX(0); }
     100% { transform: scale(1.05) translateX(-15px); }
@@ -35,30 +44,64 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     color: #f5e6c8;
+    width: 90%;
+    max-width: 600px;
 }
 
 /* TIPOGRAFÍA */
 h1 {
     font-family: 'Great Vibes', cursive;
-    font-size: 70px;
+    font-size: clamp(40px, 8vw, 80px);
     color: #ffd700;
-    text-shadow: 0 0 15px gold;
+    text-shadow: 0 0 20px gold;
 }
 
-h2, h3 {
-    font-family: 'Cinzel', serif;
-}
-
-h3 {
-    font-size: 48px;
-    color: #ffe9a6;
+h2 {
+    font-size: clamp(18px, 3vw, 30px);
 }
 
 p {
-    font-family: 'Cinzel', serif;
+    font-size: clamp(14px, 2.5vw, 18px);
 }
 
-/* EFECTO APARICIÓN */
+/* DULCES 16 */
+.dulces span {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(40px, 10vw, 90px);
+    color: #ffd700;
+    position: relative;
+
+    text-shadow:
+        0 0 10px #ffd700,
+        0 0 20px #ffcc66,
+        0 0 40px #ffaa00;
+
+    animation: glowPulse 3s infinite alternate;
+}
+
+@keyframes glowPulse {
+    from { text-shadow: 0 0 10px #ffd700; }
+    to { text-shadow: 0 0 30px #fff2b0, 0 0 60px #ffd700; }
+}
+
+/* BRILLO */
+.dulces span::after {
+    content: "Dulces 16";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(120deg, transparent, white, transparent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s infinite;
+}
+
+@keyframes shine {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+}
+
+/* ENTRADA */
 .content * {
     opacity: 0;
     transform: translateY(20px);
@@ -68,7 +111,7 @@ p {
 .intro { animation-delay: 1s; }
 h1 { animation-delay: 2s; }
 h2 { animation-delay: 2.5s; }
-h3 { animation-delay: 3s; }
+.dulces { animation-delay: 3s; }
 .details { animation-delay: 4s; }
 .footer { animation-delay: 5s; }
 
@@ -79,45 +122,24 @@ h3 { animation-delay: 3s; }
     }
 }
 
-/* LUCES */
-.lights::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background-image: radial-gradient(circle, rgba(255,215,0,0.8) 2px, transparent 3px);
-    background-size: 60px 60px;
-    animation: floatLights 25s linear infinite;
-}
-
-@keyframes floatLights {
-    from { transform: translateY(0); }
-    to { transform: translateY(-300px); }
-}
-
 /* HADAS */
 .fairy {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: radial-gradient(circle, #fff, #ffd700);
     border-radius: 50%;
+    background: radial-gradient(circle, #fff, #ffd700);
     box-shadow: 0 0 10px #fff, 0 0 20px gold;
-    animation: fly linear infinite;
+    animation: fly linear forwards;
 }
 
-/* MOVIMIENTO HADAS */
 @keyframes fly {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0;
-    }
+    0% { transform: translate(0,0); opacity: 0; }
     10% { opacity: 1; }
-    50% {
-        transform: translate(100px, -150px) scale(1.2);
-    }
-    100% {
-        transform: translate(-100px, -300px) scale(0.8);
-        opacity: 0;
+    100% { transform: translate(-100px,-300px); opacity: 0; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .forest {
+        background-position: center top;
     }
 }
